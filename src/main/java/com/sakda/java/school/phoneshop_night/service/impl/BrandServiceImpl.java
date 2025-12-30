@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sakda.java.school.phoneshop_night.entity.Brand;
+import com.sakda.java.school.phoneshop_night.exception.ResourceNotFoundException;
 import com.sakda.java.school.phoneshop_night.repository.BrandRepository;
 import com.sakda.java.school.phoneshop_night.service.BrandService;
 
@@ -16,5 +17,19 @@ public class BrandServiceImpl implements BrandService{
 	public Brand createBrand(Brand brand) {
 		return brandRepository.save(brand);
 	}
+
+	@Override
+	public Brand getById(Integer id) {
+		return brandRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Brand", id));
+	}
+
+	@Override
+	public Brand update(Integer id, Brand brandUpdate) {
+		Brand brand = getById(id);
+		brand.setName(brandUpdate.getName());
+		return brandRepository.save(brand);
+	}
+
+
 
 }
