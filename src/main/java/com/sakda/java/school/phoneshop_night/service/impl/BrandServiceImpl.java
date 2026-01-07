@@ -16,10 +16,15 @@ import com.sakda.java.school.phoneshop_night.service.util.PageUtil;
 import com.sakda.java.school.phoneshop_night.spec.BrandFilter;
 import com.sakda.java.school.phoneshop_night.spec.BrandSpec;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class BrandServiceImpl implements BrandService{
 	@Autowired
-	private BrandRepository brandRepository;
+	private final BrandRepository brandRepository;
 
 	@Override
 	public Brand createBrand(Brand brand) {
@@ -28,7 +33,8 @@ public class BrandServiceImpl implements BrandService{
 
 	@Override
 	public Brand getById(Integer id) {
-		return brandRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Brand", id));
+		return brandRepository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("Brand", id));
 	}
 
 	@Override
