@@ -1,5 +1,6 @@
 package com.sakda.java.school.phoneshop_night.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,17 +16,25 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sakda.java.school.phoneshop_night.dto.BrandDTO;
+import com.sakda.java.school.phoneshop_night.dto.ModelDTO;
 import com.sakda.java.school.phoneshop_night.dto.PageDTO;
 import com.sakda.java.school.phoneshop_night.entity.Brand;
+import com.sakda.java.school.phoneshop_night.entity.Model;
 import com.sakda.java.school.phoneshop_night.mapper.BrandMapper;
+import com.sakda.java.school.phoneshop_night.mapper.ModelEntityMapper;
 import com.sakda.java.school.phoneshop_night.service.BrandService;
+import com.sakda.java.school.phoneshop_night.service.ModelService;
 
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("brands")
 public class BrandController {
 	
-	@Autowired
-	private BrandService brandService;
+	private final BrandService brandService;
+	private final ModelService modelService;
+	private final ModelEntityMapper modelMapper;
 	
 	@RequestMapping(method = RequestMethod.POST)
 	//@PostMapping
@@ -60,5 +69,13 @@ public class BrandController {
 				.map(brand -> BrandMapper.INSTANCE.toBrandDTO(brand))
 				.collect(Collectors.toList());*/
 		return ResponseEntity.ok(pageDTO);
+	}
+	@GetMapping("{id}/models")
+	public ResponseEntity<?> getModelsByBrand(@PathVariable("id") Integer brandId){
+		List<Model> brands = modelService.getByBrand(brandId);
+		List<ModelDTO> list = brands.stream()
+			.map(modelMapper::toModelDTO)
+			.toList();
+		return ResponseEntity.ok(list);
 	}
 }

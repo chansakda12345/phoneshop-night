@@ -9,8 +9,8 @@ import com.sakda.java.school.phoneshop_night.entity.Model;
 import com.sakda.java.school.phoneshop_night.service.BrandService;
 
 @Mapper(componentModel = "spring", uses = {BrandService.class})
-public interface ModelMapper {
-	ModelMapper INSTANCE = Mappers.getMapper(ModelMapper.class);
+public interface ModelEntityMapper {
+	ModelEntityMapper INSTANCE = Mappers.getMapper(ModelEntityMapper.class);
 	
 	@Mapping(target = "brand", source = "brandId")
 	Model toModel(ModelDTO dto);

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.sakda.java.school.phoneshop_night.dto.ModelDTO;
 import com.sakda.java.school.phoneshop_night.entity.Model;
-import com.sakda.java.school.phoneshop_night.mapper.ModelMapper;
+import com.sakda.java.school.phoneshop_night.mapper.ModelEntityMapper;
 import com.sakda.java.school.phoneshop_night.service.ModelService;
 
 import lombok.RequiredArgsConstructor;
@@ -19,7 +19,7 @@ import lombok.RequiredArgsConstructor;
 public class ModelController {
 	
 	private final ModelService modelService;
-	private final ModelMapper modelMapper;
+	private final ModelEntityMapper modelMapper;
 	
 	
 	@PostMapping
