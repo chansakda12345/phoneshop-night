@@ -1,16 +1,29 @@
 spring:
- datasource:
-  url: jdbc:postgresql://localhost:5432/phoneshop_night
-  username: phoneshop_night
-  password: Sakda119
- jpa:
-  properties: 
-   hibernate:
-   dialect: or.hibernate.dialect.PostgreSQLDialect
-  hibernate:
-   ddl-auto: update
- mvc:
-  pathmatch:
-   matching-strategy: ant_path_matcher
- liquibase:
-  change-log: classpath:db/changelog/db.changelog-master.yml
+  datasource:
+    url: jdbc:postgresql://localhost:5432/phoneshop_night
+    username: phoneshop_night
+    password: Sakda119
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: create   # 🔴 change to update after it works once
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        default_schema: public
+
+  liquibase:
+    enabled: false
+
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+    org.hibernate.tool.schema: DEBUG
+    org.springframework.orm.jpa: DEBUG
