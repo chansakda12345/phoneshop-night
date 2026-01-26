@@ -1,5 +1,7 @@
 package com.sakda.java.school.phoneshop_night.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -7,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sakda.java.school.phoneshop_night.dto.ProductDTO;
+import com.sakda.java.school.phoneshop_night.dto.ProductImportDTO;
 import com.sakda.java.school.phoneshop_night.entity.Product;
 import com.sakda.java.school.phoneshop_night.mapper.ProductMapper;
 import com.sakda.java.school.phoneshop_night.service.ProductService;
@@ -28,4 +31,9 @@ public class ProductController {
 		return ResponseEntity.ok(product);
 	}
 	
+	@PostMapping("importProduct")
+	public ResponseEntity<?> importProduct(@RequestBody @Valid ProductImportDTO importDTO){
+		productService.importProduct(importDTO);
+		return ResponseEntity.ok().build();
+	}
 }
